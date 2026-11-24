@@ -10,17 +10,63 @@ WeatherAPI.com conditions and optional SkywarnPlus status and alerts in the **No
 
 The installer installs `python3-yaml` if needed. SkywarnPlus is optional. When it is installed locally, the add-on can show its status and active alerts. Current conditions are fetched every three minutes per ZIP, and the add-on checks SkywarnPlus status once a minute.
 
-## Install
+## Install from the ASL3 terminal
 
-Sign in to GitHub if prompted, open the installer ZIP, and click **Download raw file**. Copy the ZIP to your ASL3 node if you downloaded it on another computer. [Installer ZIP](https://github.com/KD5FMU/Weather-Node-Information/blob/main/downloads/supermon-node-weather-1.0.0.zip) · [SHA-256 checksum](https://github.com/KD5FMU/Weather-Node-Information/blob/main/downloads/supermon-node-weather-1.0.0.zip.sha256)
+Log into your ASL3 node by SSH or open its local terminal. Have your node ID, five-digit ZIP code, and WeatherAPI.com key ready.
 
-On the ASL3 node, open a terminal in the directory containing the ZIP and run:
+### Private repository setup
+
+While this repository is private, you need a GitHub account with access. On the ASL3 node, run these commands as your usual login user:
 
 ```sh
-unzip supermon-node-weather-1.0.0.zip -d supermon-weather-1.0.0 &&
-cd supermon-weather-1.0.0/supermon-node-weather &&
-sudo sh install.sh
+sudo apt-get install -y gh unzip
+gh auth login --hostname github.com --web
 ```
+
+Follow the sign-in instructions. Then paste this whole block into the ASL3 terminal:
+
+```sh
+(
+  set -e
+  install_dir=$(mktemp -d "$HOME/supermon-weather-1.0.0.XXXXXX")
+  cd "$install_dir"
+  archive=supermon-node-weather-1.0.0.zip
+  repo=repos/KD5FMU/Weather-Node-Information/contents/downloads
+  version=345e683c15dd9844f2b77654c87988c530a9413e
+  for file in "$archive" "$archive.sha256"; do
+    encoded=$(gh api "$repo/$file?ref=$version" --jq .content)
+    printf '%s' "$encoded" | base64 -d > "$file"
+  done
+  sha256sum -c "$archive.sha256"
+  unzip -q "$archive"
+  cd supermon-node-weather
+  printf 'Installer folder: %s\n' "$PWD"
+  sudo sh install.sh
+)
+```
+
+### Public repository setup
+
+Use this option once the repository is public. It works without a GitHub login. If the node needs the download tools, run `sudo apt-get install -y wget unzip` first. Then paste this block:
+
+```sh
+(
+  set -e
+  install_dir=$(mktemp -d "$HOME/supermon-weather-1.0.0.XXXXXX")
+  cd "$install_dir"
+  archive=supermon-node-weather-1.0.0.zip
+  url=https://raw.githubusercontent.com/KD5FMU/Weather-Node-Information/345e683c15dd9844f2b77654c87988c530a9413e/downloads
+  wget -O "$archive" "$url/$archive"
+  wget -O "$archive.sha256" "$url/$archive.sha256"
+  sha256sum -c "$archive.sha256"
+  unzip -q "$archive"
+  cd supermon-node-weather
+  printf 'Installer folder: %s\n' "$PWD"
+  sudo sh install.sh
+)
+```
+
+### Answer the installer prompts
 
 1. Choose one node by ID or all local Supermon nodes. The all-local option selects numeric node entries in `allmon.ini` that use a loopback address.
 2. Enter a five-digit ZIP for each selected node. If a standard local SkywarnPlus installation is detected, choose whether to show its status.
