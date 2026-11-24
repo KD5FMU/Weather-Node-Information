@@ -14,40 +14,7 @@ The installer installs `python3-yaml` if needed. SkywarnPlus is optional. When i
 
 Log into your ASL3 node by SSH or open its local terminal. Have your node ID, five-digit ZIP code, and WeatherAPI.com key ready.
 
-### Private repository setup
-
-While this repository is private, you need a GitHub account with access. On the ASL3 node, run these commands as your usual login user:
-
-```sh
-sudo apt-get install -y gh unzip
-gh auth login --hostname github.com --web
-```
-
-Follow the sign-in instructions. Then paste this whole block into the ASL3 terminal:
-
-```sh
-(
-  set -e
-  install_dir=$(mktemp -d "$HOME/supermon-weather-1.0.0.XXXXXX")
-  cd "$install_dir"
-  archive=supermon-node-weather-1.0.0.zip
-  repo=repos/KD5FMU/Weather-Node-Information/contents/downloads
-  version=345e683c15dd9844f2b77654c87988c530a9413e
-  for file in "$archive" "$archive.sha256"; do
-    encoded=$(gh api "$repo/$file?ref=$version" --jq .content)
-    printf '%s' "$encoded" | base64 -d > "$file"
-  done
-  sha256sum -c "$archive.sha256"
-  unzip -q "$archive"
-  cd supermon-node-weather
-  printf 'Installer folder: %s\n' "$PWD"
-  sudo sh install.sh
-)
-```
-
-### Public repository setup
-
-Use this option once the repository is public. It works without a GitHub login. If the node needs the download tools, run `sudo apt-get install -y wget unzip` first. Then paste this block:
+If the node needs the download tools, run `sudo apt-get install -y wget unzip` first. Then paste this whole block into the ASL3 terminal:
 
 ```sh
 (
