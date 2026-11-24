@@ -1,0 +1,1 @@
+* * * * * asterisk /usr/bin/python3 /usr/local/lib/supermon-node-weather/collect.py /etc/supermon-node-weather.json /var/lib/supermon-node-weather/snapshot.json
