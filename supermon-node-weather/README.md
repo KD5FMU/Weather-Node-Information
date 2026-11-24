@@ -1,5 +1,7 @@
 # Supermon Node Weather
 
+Created by Freddie Mac (KD5FMU) with development assistance from OpenAI Codex.
+
 WeatherAPI.com conditions and optional SkywarnPlus status and alerts in the **Node Information** table for each configured node in Supermon 8 on Debian ASL3.
 
 ## Requirements
@@ -12,13 +14,13 @@ The installer installs `python3-yaml` if needed. SkywarnPlus is optional. When i
 
 ## Install
 
-Sign in to GitHub if prompted, open the installer ZIP, and click **Download raw file**. Copy the ZIP to your ASL3 node if you downloaded it on another computer. [Installer ZIP](https://github.com/KD5FMU/Weather-Node-Information/blob/main/downloads/supermon-node-weather-1.0.0.zip) · [SHA-256 checksum](https://github.com/KD5FMU/Weather-Node-Information/blob/main/downloads/supermon-node-weather-1.0.0.zip.sha256)
+Sign in to GitHub if prompted, open the installer ZIP, and click **Download raw file**. Copy the ZIP to your ASL3 node if you downloaded it on another computer. [Installer ZIP](https://github.com/KD5FMU/Weather-Node-Information/blob/main/downloads/supermon-node-weather-1.0.1.zip) · [SHA-256 checksum](https://github.com/KD5FMU/Weather-Node-Information/blob/main/downloads/supermon-node-weather-1.0.1.zip.sha256)
 
 On the ASL3 node, open a terminal in the directory containing the ZIP and run:
 
 ```sh
-unzip supermon-node-weather-1.0.0.zip -d supermon-weather-1.0.0 &&
-cd supermon-weather-1.0.0/supermon-node-weather &&
+unzip supermon-node-weather-1.0.1.zip -d supermon-weather-1.0.1 &&
+cd supermon-weather-1.0.1/supermon-node-weather &&
 sudo sh install.sh
 ```
 

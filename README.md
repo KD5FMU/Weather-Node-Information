@@ -2,6 +2,8 @@
 
 # Supermon Node Weather
 
+Created by Freddie Mac (KD5FMU) with development assistance from OpenAI Codex.
+
 WeatherAPI.com conditions and optional SkywarnPlus status and alerts in the **Node Information** table for each configured node in Supermon 8 on Debian ASL3.
 
 ## Requirements
@@ -21,10 +23,10 @@ If the node needs the download tools, run `sudo apt-get install -y wget unzip` f
 ```sh
 (
   set -e
-  install_dir=$(mktemp -d "$HOME/supermon-weather-1.0.0.XXXXXX")
+  install_dir=$(mktemp -d "$HOME/supermon-weather-1.0.1.XXXXXX")
   cd "$install_dir"
-  archive=supermon-node-weather-1.0.0.zip
-  url=https://raw.githubusercontent.com/KD5FMU/Weather-Node-Information/345e683c15dd9844f2b77654c87988c530a9413e/downloads
+  archive=supermon-node-weather-1.0.1.zip
+  url=https://raw.githubusercontent.com/KD5FMU/Weather-Node-Information/main/downloads
   wget -O "$archive" "$url/$archive"
   wget -O "$archive.sha256" "$url/$archive.sha256"
   sha256sum -c "$archive.sha256"

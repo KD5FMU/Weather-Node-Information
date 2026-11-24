@@ -47,3 +47,4 @@ if ! runuser -u asterisk -- python3 "$support/collect.py" "$settings" "$state/sn
     exit 1
 fi
 echo "Installed. Reload the Supermon node page."
+printf '%s\n' 'Created by Freddie Mac (KD5FMU) with development assistance from OpenAI Codex.'
