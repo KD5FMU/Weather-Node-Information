@@ -1,3 +1,5 @@
+![Weather Logo](https://github.com/KD5FMU/Weather-Node-Information/blob/main/weather-node.png)
+
 # Supermon Node Weather
 
 WeatherAPI.com conditions and optional SkywarnPlus status and alerts in the **Node Information** table for each configured node in Supermon 8 on Debian ASL3.
